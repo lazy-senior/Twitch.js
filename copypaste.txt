@@ -1,0 +1,21 @@
+this.client.on('message', function(message){
+			console.log('>MESSAGE ', message);
+		});
+
+		this.client.on('event', function(message){
+			console.log('>EVENT', message);
+		});
+
+		this.client.emit( 'connect' , function() {
+			console.log( 'Client: Connected to port ' + 6667 );
+
+			this.client.emit('PASS', this.identity.password, function(message){
+				console.log('<PASS ', this.identity.password );
+				console.log('> ', message);
+			});
+
+			this.client.emit('USER', this.identity.username, function(message){
+				console.log('<USER ', this.identity.username );
+				console.log('> ', message);
+			})
+		});
